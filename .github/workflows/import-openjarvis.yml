@@ -6,6 +6,10 @@ on:
       - ".github/workflows/import-openjarvis.yml"
   workflow_dispatch:
 
+concurrency:
+  group: ultron-upstream-import
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
@@ -22,12 +26,12 @@ jobs:
         with:
           repository: open-jarvis/OpenJarvis
           ref: main
-          path: /tmp/openjarvis-upstream
+          path: upstream
           fetch-depth: 1
       - name: Copy upstream source into ULTRON
         shell: bash
         run: |
-          rsync -a --exclude='.git' /tmp/openjarvis-upstream/ ./
+          rsync -a --exclude='.git' upstream/ ./
           # Keep ULTRON-owned application files alongside the imported framework.
           mkdir -p ultron_server docs tests
           cat > README.md <<'EOF'
@@ -60,7 +64,7 @@ jobs:
           p.write_text(s)
           PY
           # Add an explicit record of the imported upstream revision.
-          git -C /tmp/openjarvis-upstream rev-parse HEAD > UPSTREAM_COMMIT
+          git -C upstream rev-parse HEAD > UPSTREAM_COMMIT
           git add -A
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
