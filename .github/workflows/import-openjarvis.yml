@@ -27,7 +27,7 @@ jobs:
       - name: Copy upstream source into ULTRON
         shell: bash
         run: |
-          rsync -a --delete --exclude='.git' /tmp/openjarvis-upstream/ ./
+          rsync -a --exclude='.git' /tmp/openjarvis-upstream/ ./
           # Keep ULTRON-owned application files alongside the imported framework.
           mkdir -p ultron_server docs tests
           cat > README.md <<'EOF'
