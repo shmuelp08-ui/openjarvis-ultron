@@ -1426,7 +1426,7 @@ wheels = [
 
 [[package]]
 name = "deepgram-sdk"
-version = "6.0.1"
+version = "7.19.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "httpx" },
@@ -1435,9 +1435,9 @@ dependencies = [
     { name = "typing-extensions" },
     { name = "websockets" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/73/46/6dc45de574d766a20853452d7beccf17cb0cfeb685a0f03460f1fe49b48e/deepgram_sdk-6.0.1.tar.gz", hash = "sha256:88558a43d6173a861c8b6d6491b9ee8805679fb09fb81ef51eeb6871dad77767", size = 176743, upload-time = "2026-02-24T13:52:17.163Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/24/2a/657f471495766961fc89f1c4dce94c0c0065272d7c65037e0a8e69cd59a5/deepgram_sdk-7.19.0.tar.gz", hash = "sha256:e92416b33abcfb7146be7d894e7d8f9b4e8ad8dbbc2ddb4fc65989eff0be401a", size = 266185, upload-time = "2026-11-13T09:44:38.593Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/58/a4/53b9075816edc566694aed014d9864febedf232677b74f5d30bdde64b5de/deepgram_sdk-6.0.1-py3-none-any.whl", hash = "sha256:1b33d621b1c0b1d7a6a7b46fdc393aef4212e670521fada99764f5fb3f9d55fd", size = 490751, upload-time = "2026-02-24T13:52:15.998Z" },
+    { url = "https://files.pythonhosted.org/packages/00/02/99e5fd5d8d4cb3cd8afcdd0e25ede7857770eecdd0b9a648ddd3e1eac090/deepgram_sdk-7.19.0-py3-none-any.whl", hash = "sha256:dcd4a80add10193c7b5f3b4a1fd54c449aa5e4b8e1429c7c6afcd1f116a1508d", size = 688393, upload-time = "2026-11-13T09:44:36.65Z" },
 ]
 
 [[package]]
@@ -2263,11 +2263,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/a0/d4/0f8481baa50f75db3bb19a0df79fe19615e66eccfc3afb0b946dcb8791b3/google_auth-2.62.2-py3-none-any.whl", hash = "sha256:e9bcdb0679b6a4369ac327c5c59f06d92f7b4cd2624e7100294c14632f55a36b", size = 270150, upload-time = "2026-11-10T15:50:53.408Z" },
 ]
 
-[package.optional-dependencies]
-requests = [
-    { name = "requests" },
-]
-
 [[package]]
 name = "google-auth-httplib2"
 version = "0.4.4"
@@ -2292,27 +2287,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/c4/40/1d7901e454831247e377ef3f642cb857cc0e82ec4d2380b7a148a48f20d1/google_auth_oauthlib-1.5.0.tar.gz", hash = "sha256:b351107c7dd9017f426cbb0272ea1bc04f469020fd18f4443c7d40362e0b1510", size = 23926, upload-time = "2026-09-29T19:25:56.699Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/5a/bb/b5cc0757ad2f8068e7eb7180c37f82eb488627624c1b1214aa47ddbc032c/google_auth_oauthlib-1.5.0-py3-none-any.whl", hash = "sha256:71625fdea21c6c03217eb9ff13741c3096e6d257ebca0ad084dbd6e9f4aa4ef4", size = 20348, upload-time = "2026-09-29T19:25:31.842Z" },
-]
-
-[[package]]
-name = "google-genai"
-version = "1.65.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "anyio" },
-    { name = "distro" },
-    { name = "google-auth", extra = ["requests"] },
-    { name = "httpx" },
-    { name = "pydantic" },
-    { name = "requests" },
-    { name = "sniffio" },
-    { name = "tenacity" },
-    { name = "typing-extensions" },
-    { name = "websockets" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/79/f9/cc1191c2540d6a4e24609a586c4ed45d2db57cfef47931c139ee70e5874a/google_genai-1.65.0.tar.gz", hash = "sha256:d470eb600af802d58a79c7f13342d9ea0d05d965007cae8f76c7adff3d7a4750", size = 497206, upload-time = "2026-02-26T00:20:33.824Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/68/3c/3fea4e7c91357c71782d7dcaad7a2577d636c90317e003386893c25bc62c/google_genai-1.65.0-py3-none-any.whl", hash = "sha256:68c025205856919bc03edb0155c11b4b833810b7ce17ad4b7a9eeba5158f6c44", size = 724429, upload-time = "2026-02-26T00:20:32.186Z" },
 ]
 
 [[package]]
@@ -4765,9 +4739,6 @@ inference-cloud = [
 inference-gemma = [
     { name = "pygemma" },
 ]
-inference-google = [
-    { name = "google-genai" },
-]
 inference-litellm = [
     { name = "litellm" },
 ]
@@ -4828,7 +4799,6 @@ security-signing = [
     { name = "cryptography" },
 ]
 server = [
-    { name = "fastapi" },
     { name = "pydantic" },
     { name = "python-multipart" },
     { name = "uvicorn" },
@@ -4887,7 +4857,6 @@ requires-dist = [
     { name = "dspy", marker = "extra == 'learning-dspy'", specifier = ">=3.5.0" },
     { name = "faiss-cpu", marker = "extra == 'memory-faiss'", specifier = ">=1.7" },
     { name = "fastapi", marker = "extra == 'desktop'", specifier = ">=0.110" },
-    { name = "fastapi", marker = "extra == 'server'", specifier = ">=0.110" },
     { name = "faster-whisper", marker = "extra == 'desktop'", specifier = ">=1.0" },
     { name = "faster-whisper", marker = "extra == 'speech'", specifier = ">=1.0" },
     { name = "filelock", specifier = ">=4.2.1" },
@@ -4897,7 +4866,6 @@ requires-dist = [
     { name = "google-auth", marker = "extra == 'eval-sheets'", specifier = ">=2.0" },
     { name = "google-auth-httplib2", marker = "extra == 'channel-gmail'", specifier = ">=0.2" },
     { name = "google-auth-oauthlib", marker = "extra == 'channel-gmail'", specifier = ">=1.0" },
-    { name = "google-genai", marker = "extra == 'inference-google'", specifier = ">=1.0" },
     { name = "gspread", marker = "extra == 'eval-sheets'", specifier = ">=6.0" },
     { name = "httpx", specifier = ">=0.27" },
     { name = "httpx", marker = "extra == 'channel-twitter'", specifier = ">=0.27" },
