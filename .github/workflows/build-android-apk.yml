@@ -1,13 +1,7 @@
-name: Build ULTRON Android APK
+name: Legacy ULTRON APK (manual only)
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - "android/**"
-      - ".github/workflows/build-android-apk.yml"
 
 permissions:
   contents: read
