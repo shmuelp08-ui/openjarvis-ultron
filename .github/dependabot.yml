@@ -45,6 +45,14 @@ updates:
 
   - package-ecosystem: "uv"
     directory: "/"
+    # These optional extras currently have incompatible upstream version ranges:
+    # vLLM conflicts with FastAPI/NumPy/Transformers during cross-platform lock updates.
+    # Keep updating the rest of the Python dependency set.
+    ignore:
+      - dependency-name: "fastapi"
+      - dependency-name: "numpy"
+      - dependency-name: "transformers"
+      - dependency-name: "vllm"
     open-pull-requests-limit: 2
     schedule:
       interval: "weekly"
@@ -54,17 +62,3 @@ updates:
           - "*"
         update-types:
           - "minor"
-          - "patch"
-
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    open-pull-requests-limit: 2
-    schedule:
-      interval: "weekly"
-    groups:
-      actions-minor-patch:
-        patterns:
-          - "*"
-        update-types:
-          - "minor"
-          - "patch"
