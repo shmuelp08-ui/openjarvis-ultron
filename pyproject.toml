@@ -3,9 +3,9 @@ requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [project]
-name = "ultron-assistant"
+name = "OpenJarvis"
 dynamic = ["version"]
-description = "ULTRON — personal AI assistant built on the OpenJarvis framework"
+description = "OpenJarvis — modular AI assistant backend with composable intelligence primitives"
 readme = "README.md"
 # Upper bound: numpy 2.2.x (pinned transitively via datasets/pandas) ships no
 # cp314 Windows wheel, so under Python 3.14 uv would compile numpy from source
@@ -35,10 +35,7 @@ dependencies = [
     "ddgs>=9.11.4",
     "httpx>=0.27",
     "filelock>=4.2.1",
-    "fastapi>=0.110",
     "fsspec>=2026.6.0",
-    "google-genai>=1.0",
-    "groq>=0.9",
     "lxml>=6.1.0",
     "multidict>=6.9.1",
     "openai>=1.30",
@@ -52,8 +49,6 @@ dependencies = [
     "requests>=2.33.0",
     "urllib3>=2.8.0",
     "tomlkit>=0.12",
-    "uvicorn[standard]>=0.30",
-    "python-dotenv>=1.0",
     # IANA time-zone fallback for Windows and minimal container images.
     "tzdata>=2025.3",
     "websockets>=15.0.1",
@@ -78,7 +73,6 @@ inference-cloud = [
     "anthropic>=0.30",
 ]
 inference-google = [
-    "google-genai>=1.0",
 ]
 # Exact security pin covering the LiteLLM command-injection advisories.
 # Avoid 1.82.7/1.82.8, which were affected by the March supply-chain incident.
@@ -100,7 +94,6 @@ memory-colbert = [
 memory-pdf = ["pdfplumber>=0.10"]
 memory-bm25 = ["rank-bm25>=0.2.2"]
 server = [
-    "fastapi>=0.110",
     "uvicorn>=0.30",
     "pydantic>=2.0",
     "python-multipart>=0.0.9",
@@ -217,14 +210,14 @@ docs = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/shmuelp08-ui/openjarvis-ultron"
+Homepage = "https://github.com/open-jarvis/OpenJarvis"
 Documentation = "https://open-jarvis.github.io/OpenJarvis/"
-Repository = "https://github.com/shmuelp08-ui/openjarvis-ultron"
-Issues = "https://github.com/open-jarvis/OpenJarvis/issues"
+Repository = "https://github.com/open-jarvis/OpenJarvis"
+Issues = "https://github.com/shmuelp08-ui/openjarvis-ultron/issues"
 
 [project.scripts]
-ultron = "openjarvis.cli:main"
-ultron-eval = "openjarvis.evals.cli:main"
+jarvis = "openjarvis.cli:main"
+openjarvis-eval = "openjarvis.evals.cli:main"
 
 # Version is derived from git tags by hatch-vcs (see #526). For source/editable
 # checkouts this yields the true `git describe` version (e.g. 1.0.3.dev109+g<sha>)
