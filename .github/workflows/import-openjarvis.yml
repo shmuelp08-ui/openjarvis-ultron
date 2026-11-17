@@ -31,7 +31,8 @@ jobs:
       - name: Copy upstream source into ULTRON
         shell: bash
         run: |
-          rsync -a --exclude='.git' upstream/ ./
+          rsync -a --exclude='.git' --exclude='.github/workflows/**' upstream/ ./
+          rm -rf upstream
           # Keep ULTRON-owned application files alongside the imported framework.
           mkdir -p ultron_server docs tests
           cat > README.md <<'EOF'
