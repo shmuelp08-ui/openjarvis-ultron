@@ -1,0 +1,68 @@
+name: Import and rebrand OpenJarvis
+
+on:
+  push:
+    paths:
+      - ".github/workflows/import-openjarvis.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out ULTRON
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check out upstream OpenJarvis
+        uses: actions/checkout@v4
+        with:
+          repository: open-jarvis/OpenJarvis
+          ref: main
+          path: /tmp/openjarvis-upstream
+          fetch-depth: 1
+      - name: Copy upstream source into ULTRON
+        shell: bash
+        run: |
+          rsync -a --delete --exclude='.git' /tmp/openjarvis-upstream/ ./
+          # Keep ULTRON-owned application files alongside the imported framework.
+          mkdir -p ultron_server docs tests
+          cat > README.md <<'EOF'
+          # ULTRON
+          Android-first personal AI built on the actual OpenJarvis framework.
+
+          This repository contains the upstream OpenJarvis source tree, adapted and rebranded for ULTRON, plus the ULTRON API/backend integration.
+
+          ## Upstream foundation
+          The framework source is imported from https://github.com/open-jarvis/OpenJarvis.
+          Original copyright and attribution notices are retained. See LICENSE and NOTICE.
+
+          ## ULTRON provider configuration
+          Gemini is the primary hosted model provider; Groq is the fallback. Configure GEMINI_API_KEY and GROQ_API_KEY in your environment. Never commit real secrets.
+
+          ## Development
+          The upstream framework requires Python 3.11–3.13. Install the project and optional extras as documented in the upstream package configuration. The ULTRON API lives in ultron_server/.
+          EOF
+          # Keep upstream Python package/import names intact for compatibility.
+          # Rebrand user-facing project metadata and CLI command only.
+          python - <<'PY'
+          from pathlib import Path
+          p = Path("pyproject.toml")
+          s = p.read_text()
+          s = s.replace('name = "OpenJarvis"', 'name = "ultron-assistant"')
+          s = s.replace('description = "OpenJarvis — modular AI assistant backend with composable intelligence primitives"', 'description = "ULTRON — personal AI assistant built on the OpenJarvis framework"')
+          s = s.replace('jarvis = "openjarvis.cli:main"', 'ultron = "openjarvis.cli:main"')
+          s = s.replace('Homepage = "https://github.com/open-jarvis/OpenJarvis"', 'Homepage = "https://github.com/shmuelp08-ui/openjarvis-ultron"')
+          s = s.replace('Repository = "https://github.com/open-jarvis/OpenJarvis"', 'Repository = "https://github.com/shmuelp08-ui/openjarvis-ultron"')
+          p.write_text(s)
+          PY
+          # Add an explicit record of the imported upstream revision.
+          git -C /tmp/openjarvis-upstream rev-parse HEAD > UPSTREAM_COMMIT
+          git add -A
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Import OpenJarvis source and adapt project branding for ULTRON" || echo "No changes to commit"
+          git push
