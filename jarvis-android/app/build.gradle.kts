@@ -29,6 +29,6 @@ chaquopy {
         }
     }
     sourceSets {
-        getByName("main").srcDir("../../src")
+        getByName("main") { srcDir("../../src") }
     }
 }
