@@ -1,0 +1,38 @@
+name: Build Jarvis APK
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "jarvis-android/**"
+      - "src/openjarvis/**"
+      - ".github/workflows/build-jarvis-apk.yml"
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.9"
+      - name: Install Android SDK
+        run: |
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-35" "build-tools;35.0.0" "ndk;27.2.12479018"
+      - name: Build Jarvis APK
+        working-directory: jarvis-android
+        run: gradle --no-daemon --stacktrace assembleDebug
+      - name: Name APK Jarvis-APK.apk
+        run: cp jarvis-android/app/build/outputs/apk/debug/app-debug.apk Jarvis-APK.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Jarvis-APK
+          path: Jarvis-APK.apk
+          if-no-files-found: error
+          retention-days: 14
