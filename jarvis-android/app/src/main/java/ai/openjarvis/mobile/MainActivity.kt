@@ -20,7 +20,6 @@ class MainActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (!Python.isStarted()) Python.start(AndroidPlatform(this))
         val prefs = getSharedPreferences("jarvis", MODE_PRIVATE)
         val root = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
@@ -41,7 +40,7 @@ class MainActivity : Activity() {
         model = field("Model", prefs.getString("model", "gpt-4o-mini") ?: "gpt-4o-mini")
         root.addView(model, LinearLayout.LayoutParams(-1, 54))
         output = TextView(this).apply {
-            text = "OpenJarvis engine ready. Add your API key to start."
+            text = "Jarvis is ready. Add your API key to start."
             textSize = 15f; setTextColor(Color.LTGRAY); setPadding(4, 16, 4, 16)
         }
         val scroll = ScrollView(this); scroll.addView(output)
@@ -69,6 +68,7 @@ class MainActivity : Activity() {
         prompt.setText("")
         executor.execute {
             try {
+                if (!Python.isStarted()) Python.start(AndroidPlatform(this@MainActivity))
                 val py = Python.getInstance()
                 val result = py.getModule("jarvis_mobile").callAttr("ask", apiKey, modelName, question).toString()
                 runOnUiThread { output.append("\n$result"); send.isEnabled = true }
