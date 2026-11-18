@@ -20,6 +20,21 @@ class MainActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val previousCrash = java.io.File(filesDir, "jarvis_last_crash.txt")
+        if (previousCrash.exists()) {
+            val report = previousCrash.readText()
+            previousCrash.delete()
+            setContentView(ScrollView(this).apply {
+                setBackgroundColor(Color.rgb(10, 12, 18))
+                addView(TextView(this@MainActivity).apply {
+                    text = "JARVIS STARTUP CRASH REPORT\\n\\n$report"
+                    textSize = 13f
+                    setTextColor(Color.WHITE)
+                    setPadding(24, 28, 24, 28)
+                })
+            })
+            return
+        }
         val prefs = getSharedPreferences("jarvis", MODE_PRIVATE)
         val root = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
